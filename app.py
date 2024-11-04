@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import google.generativeai as genai
 import os
 
-os.environ["GOOGLE_API_KEY"] = "AIzaSyCrxXOE4h3nfOHGatKQYCxVH089hwmlDZo"
+os.environ["GOOGLE_API_KEY"] = ""
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 app = Flask(__name__)
@@ -12,7 +12,6 @@ def generate_course_content(course_description):
     response = model.generate_content(course_description)
 
     if response.candidates:
-        # Проверяем наличие текста в response.candidates[0]
         return response.candidates[0].content.parts[0].text
     else:
         return "Ошибка: Ответ не был получен"
