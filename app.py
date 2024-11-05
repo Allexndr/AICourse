@@ -8,13 +8,16 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 app = Flask(__name__)
 
 def generate_course_content(course_description):
-    model = genai.GenerativeModel('gemini-1.5-flash')
-    response = model.generate_content(course_description)
+    try:
+        model = genai.GenerativeModel('gemini-1.5-flash')
+        response = model.generate_content(course_description)
 
-    if response.candidates:
-        return response.candidates[0].content.parts[0].text
-    else:
-        return "Ошибка: Ответ не был получен"
+        if response.candidates:
+            return response.candidates[0].content.parts[0].text
+        else:
+            return "Ошибка: Ответ не был получен"
+    except Exception as e:
+        return f"Ошибка: Не удалось подключиться к сервису. Детали: {str(e)}"
 
 @app.route('/')
 def index():
@@ -24,7 +27,6 @@ def index():
 def generate_course():
     course_description = request.form['course_description']
     course_content = generate_course_content(course_description)
-    return f"Generated Course Content: {course_content}"
-
+    return render_template("result.html", course_content = course_content)
 if __name__ == '__main__':
     app.run(debug=True)
