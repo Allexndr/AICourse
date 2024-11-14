@@ -1,0 +1,32 @@
+.course-content {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+}
+
+.course-content h2 {
+    color: #007bff;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.course-content h3 {
+    color: #0056b3;
+    font-size: 20px;
+    margin-top: 20px;
+}
+
+.course-content h4 {
+    color: #333;
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+.course-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.course-content li {
+    margin-bottom: 10px;
+}
