@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>О проекте</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<div class="container">
+  <h1>О проекте</h1>
+  <p>Этот сайт позволяет генерировать учебные курсы с использованием ИИ.</p>
+  <p>Вы можете создавать курсы, лекции и даже ответы на вопросы!</p>
+  <img src="/static/images/about.jpg" alt="О проекте">
+  <a href="{{ url_for('index') }}">На главную</a>
+</div>
+</body>
+</html>
