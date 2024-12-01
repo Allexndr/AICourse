@@ -3,6 +3,7 @@ import google.generativeai as genai
 import os
 import requests
 from markupsafe import Markup
+from flask_sqlalchemy import SQLAlchemy
 
 # Настройка API ключей
 os.environ["GOOGLE_API_KEY"] = "AIzaSyCrxXOE4h3nfOHGatKQYCxVH089hwmlDZo"
@@ -10,6 +11,45 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.secret_key = "supersecretkey"
+
+#
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://:password@localhost/your_database'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# db = SQLAlchemy(app)
+
+# Модель пользователя
+# class User(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     username = db.Column(db.String(80), nullable=False)
+#     email = db.Column(db.String(120), unique=True, nullable=False)
+#     password = db.Column(db.String(200), nullable=False)
+# #
+# # Маршруты
+# @app.route('/signup', methods=['GET', 'POST'])
+# def signup():
+#     if request.method == 'POST':
+#         username = request.form['username']
+#         email = request.form['email']
+#         password = request.form['password']
+#
+#         new_user = User(username=username, email=email, password=password)
+#         db.session.add(new_user)
+#         db.session.commit()
+#         return redirect(url_for('login'))
+#     return render_template('signup.html')
+#
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if request.method == 'POST':
+#         email = request.form['email']
+#         password = request.form['password']
+#         user = User.query.filter_by(email=email, password=password).first()
+#         if user:
+#             return f"Welcome, {user.username}!"
+#         return "Invalid credentials. Try again."
+#     return render_template('login.html')
+
 
 # ==============================
 # Вспомогательные функции
@@ -185,7 +225,9 @@ def profile():
     if 'user' in session:
         return render_template('profile.html', user=session['user'])
     return redirect(url_for('login'))
-
+@app.route('/courses')
+def courses():
+    return render_template('courses.html')
 # Вход в аккаунт
 @app.route('/login')
 def login():
